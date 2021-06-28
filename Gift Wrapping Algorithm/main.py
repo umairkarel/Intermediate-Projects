@@ -1,3 +1,9 @@
+""" 
+    Created on Mon May 17 2021
+
+    @author: umairkarel
+"""
+
 import pygame
 from pygame.draw import *
 from random import randint

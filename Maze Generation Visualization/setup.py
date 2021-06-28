@@ -1,7 +1,12 @@
+""" 
+    Created on Sat May 1 2021
+
+    @author: umairkarel
+"""
+
 import pygame
 from pygame.draw import *
 from random import randint, choice
-from cell import Cell
 
 width = 400
 height = 400
