@@ -1,5 +1,6 @@
 """ 
     Created on Sat May 1 2021
+    Updated on Mon Aug 9 2021
 
     @author: umairkarel
 """
@@ -56,10 +57,12 @@ class Cell:
         else:
             return None
 
-    def highlight(self):
+    def highlight(self, select, color=blue):
         x, y = self.x*w, self.y*w
+        if not select:
+            color = white
 
-        rect(screen, blue, pygame.Rect(x+1,y+1,w-1,w-1), 0)
+        rect(screen, color, pygame.Rect(x+1,y+1,w-1,w-1), 0)
 
     def show(self):
         x, y = self.x*w, self.y*w
@@ -73,6 +76,34 @@ class Cell:
         if self.boundaries[3]:
             line(screen, black, (x, y), (x, y+w))     # Left
 
+class Player:
+    def __init__(self,x,y):
+        self.x = x
+        self.y = y
+
+    def show(self, color=blue):
+        cells[self.x][self.y].highlight(True,color)
+
+    def move(self, x, y, traversing=False):
+        if not traversing:
+            new_x = self.x + x
+            new_y = self.y + y
+            indexes = [(0,-1), (1,0), (0,1), (-1,0)]
+            pos = indexes.index((x,y))
+
+            if 0 <= new_x < rows and 0 <= new_y < cols:
+                if not cells[self.x][self.y].boundaries[pos]:
+                    self.x = new_x
+                    self.y = new_y
+        else:
+            self.x = x
+            self.y = y
+
+    def win(self):
+        if self.x == rows-1 and self.y == cols-1:
+            return True
+        return False
+
 
 cols = width//w
 rows = height//w
@@ -85,3 +116,4 @@ for i in range(rows):
 
 current = cells[0][0]
 stack = []
+player = None

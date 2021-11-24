@@ -126,6 +126,7 @@ def solve(start, heuristic_func):
 
         for neighbor in curr.neighbors():
             if neighbor.data not in closedSet:
+                # f(x) = g(x) + h(x)
                 neighbor.f = heuristic(neighbor.data, goal, heuristic_func) + neighbor.level
                 openSet.append(neighbor)
                 neighbor.prev = curr
